@@ -1,12 +1,21 @@
+.content-wrapper {
+  padding: 32px;
+}
+
 .content {
-  section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  &.export {
+    //max-width: 595.28px;
   }
 
   .avatar {
     width: 128px;
     height: 128px;
+  }
+
+  .links {
+    display: flex;
+    > :not(:last-child) {
+      margin-right: 16px;
+    }
   }
 }

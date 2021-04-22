@@ -8,7 +8,18 @@ header {
     }
 
     .controls {
+      display: flex;
+      align-items: center;
 
+      .export {
+        cursor: pointer;
+        margin-left: 24px;
+
+        &.disabled {
+          pointer-events: none;
+          opacity: 0.6;
+        }
+      }
     }
   }
 }

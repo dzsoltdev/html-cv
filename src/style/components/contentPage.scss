@@ -1,36 +1,82 @@
 @import "../colors";
 
 .content-page {
-
-  &:not(.export) {
-    margin: 32px;
-  }
-
   display: grid;
   grid-template-columns: 1fr 3fr;
+  height: 100%;
 
   > div {
     padding: 96px 32px;
 
     font-size: 14px;
 
+    section {
+      display: flex;
+      flex-direction: column;
+
+      &.centered {
+        align-items: center;
+      }
+
+      &:not(:first-child) {
+        margin-left: 32px;
+        margin-right: 32px;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 32px;
+      }
+    }
+
     .title {
       font-weight: 600;
       font-size: 20px;
+      padding: 12px;
     }
 
     .sub-title {
+      font-weight: 600;
+      font-size: 16px;
+      padding: 8px;
+    }
+
+    .label {
       font-weight: 500;
       font-size: 16px;
+      text-transform: uppercase;
     }
   }
 
   .highlights {
     color: $font-color-light;
     background-color: #1b1775;
+
+    font-weight: 500;
+
+    a {
+      color: $font-color-light;
+      text-decoration: none;
+    }
+
+    .label {
+      color: $font-color-light-mid-opacity;
+      margin-bottom: 8px;
+    }
   }
 
   .details {
     color: $font-color-dark;
+  }
+
+  &:not(.export) {
+    border-radius: 8px;
+
+    .highlights {
+      border-radius: 8px 0 0 8px;
+    }
+
+    .details {
+      border-radius: 0 8px 8px 0;
+    }
   }
 }

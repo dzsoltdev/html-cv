@@ -1,5 +1,7 @@
 import React, {useCallback} from "react";
 import {AppBar, Toolbar, FormControlLabel, Switch, IconButton, Button} from '@material-ui/core';
+import CloudDownloadOutlinedIcon from '@material-ui/icons/CloudDownloadOutlined';
+import classNames from "classnames";
 
 // @ts-ignore
 import domToPdf from 'dom-to-pdf';
@@ -14,8 +16,10 @@ const Header = () => {
 
     if(cv) {
       let options = {
-        filename: 'test.pdf'
+        filename: 'dobak_zsolt_cv.pdf',
+        overrideWidth: cv.getBoundingClientRect().width
       };
+
       domToPdf(cv, options, function() {
         console.log('done');
       });
@@ -35,7 +39,7 @@ const Header = () => {
                                            checked={appMode === APP_MODE.EXPORT}
                                            onChange={() => setAppMode(appMode === APP_MODE.DEFAULT ? APP_MODE.EXPORT : APP_MODE.DEFAULT)}/>}
         />
-        <div onClick={handleExport}>Export</div>
+        <div className={classNames('export', {disabled: appMode !== APP_MODE.EXPORT})} onClick={handleExport}><CloudDownloadOutlinedIcon /></div>
       </div>
     </Toolbar>
   </AppBar>;
