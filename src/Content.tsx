@@ -6,7 +6,7 @@ import profilePicture from './assets/images/zsolt-dobak.jpg';
 import ContentPage from "./components/ContentPage";
 
 const Content = () => {
-  return <div className={'content'}>
+  return <div className={'content'} id={'cv-content'}>
     <ContentPage highlights={
       <>
         <section>

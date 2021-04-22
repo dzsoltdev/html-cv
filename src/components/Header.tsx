@@ -1,10 +1,26 @@
-import React from "react";
-import {AppBar, Toolbar, FormControlLabel, Switch} from '@material-ui/core';
+import React, {useCallback} from "react";
+import {AppBar, Toolbar, FormControlLabel, Switch, IconButton, Button} from '@material-ui/core';
+
+// @ts-ignore
+import domToPdf from 'dom-to-pdf';
 
 import {APP_MODE, useAppMode} from "../hooks/useAppMode";
 
 const Header = () => {
   const { appMode, setAppMode } = useAppMode();
+
+  const handleExport = useCallback(() => {
+    let cv = document.getElementById('cv-content');
+
+    if(cv) {
+      let options = {
+        filename: 'test.pdf'
+      };
+      domToPdf(cv, options, function() {
+        console.log('done');
+      });
+    }
+  },[]);
 
   return <AppBar position={'relative'}>
     <Toolbar className={'toolbar'}>
@@ -19,6 +35,7 @@ const Header = () => {
                                            checked={appMode === APP_MODE.EXPORT}
                                            onChange={() => setAppMode(appMode === APP_MODE.DEFAULT ? APP_MODE.EXPORT : APP_MODE.DEFAULT)}/>}
         />
+        <div onClick={handleExport}>Export</div>
       </div>
     </Toolbar>
   </AppBar>;
