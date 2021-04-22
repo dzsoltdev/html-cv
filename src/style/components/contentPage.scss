@@ -1,0 +1,33 @@
+@import "../colors";
+
+.content-page {
+  margin: 32px;
+
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+
+  > div {
+    padding: 96px 32px;
+
+    font-size: 14px;
+
+    .title {
+      font-weight: 600;
+      font-size: 20px;
+    }
+
+    .sub-title {
+      font-weight: 500;
+      font-size: 16px;
+    }
+  }
+
+  .highlights {
+    color: $font-color-light;
+    background-color: #1b1775;
+  }
+
+  .details {
+    color: $font-color-dark;
+  }
+}
