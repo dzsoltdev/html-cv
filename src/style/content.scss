@@ -18,4 +18,32 @@
       margin-right: 16px;
     }
   }
+
+  .accordion-container {
+    margin-bottom: 16px;
+    &::before {
+      content: unset;
+    }
+
+    .accordion-summary {
+      .summary {
+        width: 100%;
+      }
+    }
+
+    .accordion-details {
+      display: flex;
+      flex-direction: column;
+
+      border-top: 1px solid $default-font-color-low-opacity;
+    }
+
+    &.export {
+      box-shadow: unset;
+
+      .accordion-summary, .accordion-details {
+        padding: 0;
+      }
+    }
+  }
 }
