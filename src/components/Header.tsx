@@ -2,6 +2,7 @@ import React, {useCallback} from "react";
 import {AppBar, Toolbar, FormControlLabel, Switch, IconButton, Button} from '@material-ui/core';
 import CloudDownloadOutlinedIcon from '@material-ui/icons/CloudDownloadOutlined';
 import classNames from "classnames";
+import {isBrowser} from "react-device-detect";
 
 // @ts-ignore
 import domToPdf from 'dom-to-pdf';
@@ -30,7 +31,7 @@ const Header = () => {
     <Toolbar className={'toolbar'}>
       <title>Zsolt Dobák's interactive CV</title>
       <div className={'title'}>Zsolt Dobák's interactive CV</div>
-      <div className={'controls'}>
+      {isBrowser && <div className={'controls'}>
         <FormControlLabel value={'start'}
                           label={`Switch to ${appMode === APP_MODE.DEFAULT ? 'export' : 'default'} mode`}
                           labelPlacement={'start'}
@@ -39,8 +40,9 @@ const Header = () => {
                                            checked={appMode === APP_MODE.EXPORT}
                                            onChange={() => setAppMode(appMode === APP_MODE.DEFAULT ? APP_MODE.EXPORT : APP_MODE.DEFAULT)}/>}
         />
-        <div className={classNames('export', {disabled: appMode !== APP_MODE.EXPORT})} onClick={handleExport}><CloudDownloadOutlinedIcon /></div>
-      </div>
+        <div className={classNames('export', {disabled: appMode !== APP_MODE.EXPORT})} onClick={handleExport}>
+          <CloudDownloadOutlinedIcon/></div>
+      </div>}
     </Toolbar>
   </AppBar>;
 }
