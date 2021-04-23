@@ -1,5 +1,5 @@
 import React, {useCallback} from "react";
-import {AppBar, Toolbar, FormControlLabel, Switch, IconButton, Button} from '@material-ui/core';
+import {AppBar, Toolbar, FormControlLabel, Switch} from '@material-ui/core';
 import CloudDownloadOutlinedIcon from '@material-ui/icons/CloudDownloadOutlined';
 import classNames from "classnames";
 import {isBrowser} from "react-device-detect";
