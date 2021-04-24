@@ -27,7 +27,7 @@ class ExportDomToPdfOptions {
 
 export default class ExportDomToPdf {
   static export = (node: any, options: ExportDomToPdfOptions, onProcessEnd?: Function) => {
-    const {overrideWidth, excludeClassNames, fileName} = options;
+    const {overrideWidth, /*excludeClassNames,*/ fileName} = options;
 
     let overlay = ExportDomToPdf.createElement('div', {
       style: overlayCSS
