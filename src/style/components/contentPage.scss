@@ -121,4 +121,23 @@
       border-radius: 0 8px 8px 0;
     }
   }
+
+  &.export {
+    max-width: 900px;
+    grid-template-columns: 1fr 2fr;
+
+    .highlights {
+      padding: 64px 24px;
+      section {
+        &:not(:first-child) {
+          margin-left: 8px;
+          margin-right: 8px;
+        }
+      }
+    }
+
+    .details {
+      padding: 64px 32px;
+    }
+  }
 }

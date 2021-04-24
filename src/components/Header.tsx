@@ -4,10 +4,10 @@ import CloudDownloadOutlinedIcon from '@material-ui/icons/CloudDownloadOutlined'
 import classNames from "classnames";
 import {isBrowser} from "react-device-detect";
 
-// @ts-ignore
-import domToPdf from 'dom-to-pdf';
-
 import {APP_MODE, useAppMode} from "../hooks/useAppMode";
+import ExportDomToPdf from "../tools/exportDomToPdf";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   const { appMode, setAppMode } = useAppMode();
@@ -17,13 +17,10 @@ const Header = () => {
 
     if(cv) {
       let options = {
-        filename: 'dobak_zsolt_cv.pdf',
-        overrideWidth: cv.getBoundingClientRect().width
+        fileName: 'dobak_zsolt_cv.pdf',
       };
 
-      domToPdf(cv, options, function() {
-        console.log('done');
-      });
+      ExportDomToPdf.export(cv, options)
     }
   },[]);
 
@@ -40,8 +37,13 @@ const Header = () => {
                                            checked={appMode === APP_MODE.EXPORT}
                                            onChange={() => setAppMode(appMode === APP_MODE.DEFAULT ? APP_MODE.EXPORT : APP_MODE.DEFAULT)}/>}
         />
+        {appMode === APP_MODE.EXPORT && <label className={'warning'}>
+          <FontAwesomeIcon icon={faExclamationTriangle} size={'sm'}/>
+          This feature is under development
+        </label>}
         <div className={classNames('export', {disabled: appMode !== APP_MODE.EXPORT})} onClick={handleExport}>
-          <CloudDownloadOutlinedIcon/></div>
+          <CloudDownloadOutlinedIcon/>
+        </div>
       </div>}
     </Toolbar>
   </AppBar>;
