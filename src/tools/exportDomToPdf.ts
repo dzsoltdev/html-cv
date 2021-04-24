@@ -1,15 +1,15 @@
-import domtoimage from 'dom-to-image';
+// import domtoimage from 'dom-to-image';
 import {jsPDF} from "jspdf";
-import html2canvas from "html2canvas";
+// import html2canvas from "html2canvas";
 
 const a4HeightCm = 297;
 const a4WidthCm = 210;
 const a4Ratio = a4HeightCm / a4WidthCm;
-
-const inchToCmRation = 2.54;
-
-const a4Height = 595.28;
-const a4Width = 841.89;
+//
+// const inchToCmRation = 2.54;
+//
+// const a4Height = 595.28;
+// const a4Width = 841.89;
 
 enum COMPRESSION_MODE {
   NONE = 'NONE',
@@ -27,7 +27,7 @@ class ExportDomToPdfOptions {
 
 export default class ExportDomToPdf {
   static export = (node: any, options: ExportDomToPdfOptions, onProcessEnd?: Function) => {
-    const {overrideWidth, excludeClassNames, fileName, compression} = options;
+    const {overrideWidth, excludeClassNames, fileName} = options;
 
     let overlay = ExportDomToPdf.createElement('div', {
       style: overlayCSS
@@ -76,23 +76,23 @@ export default class ExportDomToPdf {
       }
     });
 
-    const filterFn = (args: any) => {
-      const {classList, tagName} = args;
-      let ref;
-      let ref1;
-
-      if (classList && excludeClassNames) {
-        for (let j = 0, classListLength = excludeClassNames.length; j < classListLength; j++) {
-          const className = excludeClassNames[j];
-
-          if (classList.indexOf(className) >= 0) {
-            return false;
-          }
-        }
-      }
-
-      return (ref = (ref1 = tagName) != null ? ref1.toLowerCase() : void 0) !== 'button' && ref !== 'input' && ref !== 'select';
-    };
+    // const filterFn = (args: any) => {
+    //   const {classList, tagName} = args;
+    //   let ref;
+    //   let ref1;
+    //
+    //   if (classList && excludeClassNames) {
+    //     for (let j = 0, classListLength = excludeClassNames.length; j < classListLength; j++) {
+    //       const className = excludeClassNames[j];
+    //
+    //       if (classList.indexOf(className) >= 0) {
+    //         return false;
+    //       }
+    //     }
+    //   }
+    //
+    //   return (ref = (ref1 = tagName) != null ? ref1.toLowerCase() : void 0) !== 'button' && ref !== 'input' && ref !== 'select';
+    // };
 
     const doc = new jsPDF('portrait', 'px', 'a2');
 
