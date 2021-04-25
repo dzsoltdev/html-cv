@@ -12,14 +12,21 @@ header {
       align-items: center;
       position: relative;
 
+      label {
+        margin-right: 24px;
+      }
+
       .export {
         cursor: pointer;
-        margin-left: 24px;
 
         &.disabled {
           pointer-events: none;
           opacity: 0.6;
         }
+      }
+
+      .download-progress {
+        color: $font-color-light-mid-opacity;
       }
 
       .warning {

@@ -1,5 +1,4 @@
 import React from "react";
-import {Line} from 'rc-progress';
 
 class ProgressBarProps {
   value: number = 0;
@@ -9,16 +8,11 @@ class ProgressBarProps {
 const ProgressBar = (props: ProgressBarProps) => {
   const {value, label} = props;
 
-  return <>
+  const style = { "--width": `${Math.min(100, Math.max(0, value))}%` } as React.CSSProperties;
+  return <div className={'progress-bar-container'}>
     {label && <label>{label}</label>}
-    <Line className={'progress-bar'}
-          percent={value}
-          strokeWidth={2}
-          trailWidth={2}
-          strokeColor="#FCFBFA"
-          trailColor="rgba(252, 251, 250, 0.4)"
-    />
-  </>;
+    <div className={'progress-bar'} data-convert-to-canvas={true} style={style}/>
+  </div>;
 }
 
 export default ProgressBar;

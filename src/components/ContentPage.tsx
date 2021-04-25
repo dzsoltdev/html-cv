@@ -14,7 +14,7 @@ const ContentPage = (props: ContentPageProps) => {
   const { appMode } = useAppMode();
   const {highlights, details} = props;
 
-  return <Paper elevation={appMode === APP_MODE.DEFAULT ? 3 : 3}
+  return <Paper elevation={3}
                 className={classNames('content-page', {
                   mobile: isMobileOnly,
                   export: appMode === APP_MODE.EXPORT

@@ -1,5 +1,5 @@
-import React, {useCallback} from "react";
-import {AppBar, Toolbar, FormControlLabel, Switch} from '@material-ui/core';
+import React, {useCallback, useState} from "react";
+import {AppBar, Toolbar, FormControlLabel, Switch, CircularProgress} from '@material-ui/core';
 import CloudDownloadOutlinedIcon from '@material-ui/icons/CloudDownloadOutlined';
 import classNames from "classnames";
 import {isBrowser} from "react-device-detect";
@@ -12,12 +12,15 @@ import {faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
 const Header = () => {
   const { appMode, setAppMode } = useAppMode();
 
+  const [exportInProgress, setExportInProgress] = useState(false);
+
   const handleExport = useCallback(() => {
     let cv = document.getElementById('cv-content');
 
     if(cv) {
       let options = {
         fileName: 'dobak_zsolt_cv.pdf',
+        setProgressState: setExportInProgress
       };
 
       ExportDomToPdf.export(cv, options)
@@ -42,7 +45,8 @@ const Header = () => {
           This feature is under development
         </label>}
         <div className={classNames('export', {disabled: appMode !== APP_MODE.EXPORT})} onClick={handleExport}>
-          <CloudDownloadOutlinedIcon/>
+          {!exportInProgress && <CloudDownloadOutlinedIcon/>}
+          {exportInProgress && <CircularProgress className={'download-progress'} size={24} />}
         </div>
       </div>}
     </Toolbar>

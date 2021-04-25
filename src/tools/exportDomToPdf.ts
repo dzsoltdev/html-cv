@@ -1,33 +1,28 @@
-// import domtoimage from 'dom-to-image';
 import {jsPDF} from "jspdf";
-// import html2canvas from "html2canvas";
+import html2canvas from "html2canvas";
+import { toPng } from 'html-to-image';
 
-const a4HeightCm = 297;
-const a4WidthCm = 210;
-const a4Ratio = a4HeightCm / a4WidthCm;
+// const a4HeightCm = 297;
+// const a4WidthCm = 210;
+// const a4Ratio = a4HeightCm / a4WidthCm;
 //
 // const inchToCmRation = 2.54;
 //
 // const a4Height = 595.28;
 // const a4Width = 841.89;
 
-enum COMPRESSION_MODE {
-  NONE = 'NONE',
-  FAST = 'FAST',
-  MEDIUM = 'MEDIUM',
-  SLOW = 'SLOW',
-}
-
 class ExportDomToPdfOptions {
   fileName: string = 'default.pdf';
-  overrideWidth?: number;
   excludeClassNames?: Array<string>;
-  compression?: COMPRESSION_MODE = COMPRESSION_MODE.NONE;
+  onProcessEnd?: Function;
+  setProgressState?: Function;
 }
 
 export default class ExportDomToPdf {
-  static export = (node: any, options: ExportDomToPdfOptions, onProcessEnd?: Function) => {
-    const {overrideWidth, /*excludeClassNames,*/ fileName} = options;
+  static export = async (node: any, options: ExportDomToPdfOptions) => {
+    const {fileName, setProgressState} = options;
+
+    setProgressState?.(true);
 
     let overlay = ExportDomToPdf.createElement('div', {
       style: overlayCSS
@@ -41,64 +36,74 @@ export default class ExportDomToPdf {
     overlay.appendChild(container);
     document.body.appendChild(overlay);
 
-    const containerWidth = overrideWidth || container.getBoundingClientRect().width;
-    const calculatedPageHeight = Math.floor(containerWidth * a4Ratio);
+    // const containerWidth = overrideWidth || container.getBoundingClientRect().width;
+    // const calculatedPageHeight = Math.floor(containerWidth * a4Ratio);
 
-    const elements: Array<any> = container.querySelectorAll('[data-breakpoint]');
+    let elementsToConvert: Array<any> = container.querySelectorAll('[data-convert-to-canvas]');
 
-    elements.forEach((element: any) => {
-      const rules: any = {
-        before: false,
-        after: false,
-        avoid: true
-      };
+    for (const element of Array.from(elementsToConvert)) {
+      const canvas: any = await html2canvas(element, {
+        backgroundColor: null
+      });
 
-      const elementClientRect = element.getBoundingClientRect();
+      element.parentNode.appendChild(canvas);
+      element.parentNode.removeChild(element);
+    }
 
-      if (rules.avoid && !rules.before) {
-        const startPage = Math.floor(elementClientRect.top / calculatedPageHeight);
-        const endPage = Math.floor(elementClientRect.bottom / calculatedPageHeight);
-        const nPages = Math.abs(elementClientRect.bottom - elementClientRect.top) / calculatedPageHeight;
-        // Turn on rules.before if the el is broken and is at most one page long.
-        if (endPage !== startPage && nPages <= 1) {
-          rules.before = true;
-        }
-        // Before: Create a padding div to push the element to the next page.
-        if (rules.before) {
-          const pad = ExportDomToPdf.createElement('div', {
-            style: {
-              display: 'block',
-              height: `${calculatedPageHeight - elementClientRect.top % calculatedPageHeight}px`
-            }
-          });
-          return element.parentNode.insertBefore(pad, element);
-        }
-      }
-    });
+    elementsToConvert = container.querySelectorAll('svg');
 
-    // const filterFn = (args: any) => {
-    //   const {classList, tagName} = args;
-    //   let ref;
-    //   let ref1;
+    for (const element of Array.from(elementsToConvert)) {
+      const dataUrl = await toPng(element);
+      const img: any = new Image();
+      img.src = dataUrl;
+
+      element.parentNode.appendChild(img);
+      element.parentNode.removeChild(element);
+    }
+
+    // elements.forEach((element: any) => {
+    //   const rules: any = {
+    //     before: false,
+    //     after: false,
+    //     avoid: true
+    //   };
     //
-    //   if (classList && excludeClassNames) {
-    //     for (let j = 0, classListLength = excludeClassNames.length; j < classListLength; j++) {
-    //       const className = excludeClassNames[j];
+    //   const elementClientRect = element.getBoundingClientRect();
     //
-    //       if (classList.indexOf(className) >= 0) {
-    //         return false;
-    //       }
+    //   if (rules.avoid && !rules.before) {
+    //     const startPage = Math.floor(elementClientRect.top / calculatedPageHeight);
+    //     const endPage = Math.floor(elementClientRect.bottom / calculatedPageHeight);
+    //     const nPages = Math.abs(elementClientRect.bottom - elementClientRect.top) / calculatedPageHeight;
+    //     // Turn on rules.before if the el is broken and is at most one page long.
+    //     if (endPage !== startPage && nPages <= 1) {
+    //       rules.before = true;
+    //     }
+    //     // Before: Create a padding div to push the element to the next page.
+    //     if (rules.before) {
+    //       const pad = ExportDomToPdf.createElement('div', {
+    //         style: {
+    //           display: 'block',
+    //           height: `${calculatedPageHeight - elementClientRect.top % calculatedPageHeight}px`
+    //         }
+    //       });
+    //       return element.parentNode.insertBefore(pad, element);
     //     }
     //   }
-    //
-    //   return (ref = (ref1 = tagName) != null ? ref1.toLowerCase() : void 0) !== 'button' && ref !== 'input' && ref !== 'select';
-    // };
+    // });
 
-    const doc = new jsPDF('portrait', 'px', 'a2');
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'px',
+      format: 'a2',
+      compress: true
+    });
 
-    doc.html(container, {
+    await doc.html(container, {
       callback: (doc) => {
         doc.save(fileName);
+
+        setProgressState?.(false);
+        document.body.removeChild(overlay);
       },
       x: 0,
       y: 0,
@@ -128,68 +133,11 @@ export default class ExportDomToPdf {
           }],
           weight: 600
         }
-      ]
+      ],
+      html2canvas: {
+        backgroundColor: null
+      }
     });
-
-    // return html2canvas(container)
-    //   .then(canvas => {
-    //     // Remove overlay
-    //     document.body.removeChild(overlay);
-    //
-    //     // Initialize the PDF.
-    //     const pdf = new jsPDF('portrait', 'px', 'a4');
-    //
-    //     // Calculate the number of pages.
-    //     const pxFullHeight = canvas.height;
-    //     const nPages = Math.ceil(pxFullHeight / calculatedPageHeight);
-    //
-    //     // Define pageHeight separately so it can be trimmed on the final page.
-    //
-    //     let pageHeight = a4Height;
-    //     const pageCanvas = document.createElement('canvas');
-    //     const pageCtx: any = pageCanvas.getContext('2d');
-    //     pageCanvas.width = canvas.width;
-    //     pageCanvas.height = calculatedPageHeight;
-    //
-    //     let h;
-    //     let w;
-    //     let imgData;
-    //     let page = 0;
-    //
-    //     while (page < nPages) {
-    //       if (page === nPages - 1 && pxFullHeight % calculatedPageHeight !== 0) {
-    //         pageCanvas.height = pxFullHeight % calculatedPageHeight;
-    //         pageHeight = pageCanvas.height * a4Height / pageCanvas.width;
-    //       }
-    //       w = pageCanvas.width;
-    //       h = pageCanvas.height;
-    //       pageCtx.fillStyle = 'white';
-    //       pageCtx.fillRect(0, 0, w, h);
-    //       pageCtx.drawImage(canvas, 0, page * calculatedPageHeight, w, h, 0, 0, w, h);
-    //       // Don't create blank pages
-    //       if (ExportDomToPdf.isCanvasBlank(pageCanvas)) {
-    //         ++page;
-    //         continue;
-    //       }
-    //       // Add the page to the PDF.
-    //       if (page) {
-    //         pdf.addPage();
-    //       }
-    //       imgData = pageCanvas.toDataURL('image/PNG');
-    //       pdf.addImage(imgData, 'PNG', 0, 0, a4Width, a4Height, undefined, compression);
-    //       ++page;
-    //     }
-    //
-    //     onProcessEnd?.();
-    //
-    //     return pdf.save(fileName);
-    //   }).catch(error => {
-    //     document.body.removeChild(overlay);
-    //
-    //     onProcessEnd?.();
-    //
-    //     return console.error(error);
-    //   });
   }
 
   private static createElement = (tagName: string, options: any) => {
@@ -249,18 +197,18 @@ export default class ExportDomToPdf {
     return clone;
   }
 
-  private static isCanvasBlank = (canvas: any) => {
-    let blank = document.createElement('canvas');
-    let ctx: any = blank.getContext('2d');
-    ;
-
-    blank.width = canvas.width;
-    blank.height = canvas.height;
-
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fillRect(0, 0, blank.width, blank.height);
-    return canvas.toDataURL() === blank.toDataURL();
-  };
+  // private static isCanvasBlank = (canvas: any) => {
+  //   let blank = document.createElement('canvas');
+  //   let ctx: any = blank.getContext('2d');
+  //   ;
+  //
+  //   blank.width = canvas.width;
+  //   blank.height = canvas.height;
+  //
+  //   ctx.fillStyle = '#FFFFFF';
+  //   ctx.fillRect(0, 0, blank.width, blank.height);
+  //   return canvas.toDataURL() === blank.toDataURL();
+  // };
 }
 
 const containerCSS: any = {
@@ -278,6 +226,7 @@ const overlayCSS: any = {
   position: 'fixed',
   zIndex: 1000,
   opacity: 0,
+  // overflow: 'scroll',
   left: 0,
   right: 0,
   bottom: 0,
