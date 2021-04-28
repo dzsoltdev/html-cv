@@ -7,7 +7,7 @@ import {APP_MODE, useAppMode} from "../hooks/useAppMode";
 
 class ContentPageProps {
   highlights?: ReactNode;
-  details?: ReactNode
+  details?: ReactNode;
 }
 
 const ContentPage = (props: ContentPageProps) => {

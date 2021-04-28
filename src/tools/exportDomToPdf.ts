@@ -12,27 +12,36 @@ import { toPng } from 'html-to-image';
 // const a4Width = 841.89;
 
 export enum paperSizes {
-  A4 = 'A4',
+  A2 = 'A2',
   A3 = 'A3',
+  A4 = 'A4',
 }
 
 class ExportDomToPdfOptions {
   fileName: string = 'default.pdf';
   paperSize: paperSizes = paperSizes.A4;
+  fittingPaperSize?: paperSizes;
+  contentMargin?: number;
   excludeClassNames?: Array<string>;
   onProcessEnd?: Function;
   setProgressState?: Function;
 }
 
+const DEFAULT_CONTENT_MARGIN = 0;
+
 export default class ExportDomToPdf {
   static export = async (node: any, options: ExportDomToPdfOptions) => {
-    const {fileName, paperSize, setProgressState} = options;
+    const {fileName, paperSize, fittingPaperSize, contentMargin, setProgressState} = options;
 
     const paperDetails = PAPER_METRICS[paperSize];
 
     setProgressState?.(true);
 
     const nodeWidth = node.getBoundingClientRect().width;
+
+    if(fittingPaperSize) {
+      ExportDomToPdf.adjustInnerElementsPosition(node, fittingPaperSize, contentMargin || DEFAULT_CONTENT_MARGIN);
+    }
 
     let overlay = ExportDomToPdf.createElement('div', {
       style: overlayCSS
@@ -73,36 +82,6 @@ export default class ExportDomToPdf {
       element.parentNode.appendChild(img);
       element.parentNode.removeChild(element);
     }
-
-    // elements.forEach((element: any) => {
-    //   const rules: any = {
-    //     before: false,
-    //     after: false,
-    //     avoid: true
-    //   };
-    //
-    //   const elementClientRect = element.getBoundingClientRect();
-    //
-    //   if (rules.avoid && !rules.before) {
-    //     const startPage = Math.floor(elementClientRect.top / calculatedPageHeight);
-    //     const endPage = Math.floor(elementClientRect.bottom / calculatedPageHeight);
-    //     const nPages = Math.abs(elementClientRect.bottom - elementClientRect.top) / calculatedPageHeight;
-    //     // Turn on rules.before if the el is broken and is at most one page long.
-    //     if (endPage !== startPage && nPages <= 1) {
-    //       rules.before = true;
-    //     }
-    //     // Before: Create a padding div to push the element to the next page.
-    //     if (rules.before) {
-    //       const pad = ExportDomToPdf.createElement('div', {
-    //         style: {
-    //           display: 'block',
-    //           height: `${calculatedPageHeight - elementClientRect.top % calculatedPageHeight}px`
-    //         }
-    //       });
-    //       return element.parentNode.insertBefore(pad, element);
-    //     }
-    //   }
-    // });
 
     const doc = new jsPDF({
       orientation: 'portrait',
@@ -211,18 +190,45 @@ export default class ExportDomToPdf {
     return clone;
   }
 
-  // private static isCanvasBlank = (canvas: any) => {
-  //   let blank = document.createElement('canvas');
-  //   let ctx: any = blank.getContext('2d');
-  //   ;
-  //
-  //   blank.width = canvas.width;
-  //   blank.height = canvas.height;
-  //
-  //   ctx.fillStyle = '#FFFFFF';
-  //   ctx.fillRect(0, 0, blank.width, blank.height);
-  //   return canvas.toDataURL() === blank.toDataURL();
-  // };
+  private static adjustInnerElementsPosition = (node: any, fittingPaperSize: paperSizes, contentMargin: number) => {
+    const PAPER_HEIGHT = PAPER_METRICS[fittingPaperSize].height;
+    let breakableElements = node.querySelectorAll('[data-breakpoint]');
+    breakableElements = Array.from(breakableElements);
+
+    if(breakableElements.length) {
+      breakableElements.forEach((element: any, index: number) => {
+        const currentElementBoundingRect = element.getBoundingClientRect();
+
+        const currentElementStartingPage = Math.floor((currentElementBoundingRect.top) / (PAPER_HEIGHT));
+        const currentElementEndingPage = Math.floor((currentElementBoundingRect.bottom) / (PAPER_HEIGHT));
+
+        if(currentElementStartingPage !== currentElementEndingPage) {
+          const nextElement = breakableElements?.[index + 1];
+
+          let nextElementStartingPage;
+          let innerBreakableElements;
+
+          if(nextElement) {
+            const nextElementBoundingRect = nextElement.getBoundingClientRect();
+
+            nextElementStartingPage = Math.floor((nextElementBoundingRect.top) / (PAPER_HEIGHT));
+
+            innerBreakableElements = element.querySelectorAll(':scope [data-breakpoint]');
+            innerBreakableElements = Array.from(innerBreakableElements);
+          }
+
+
+          if(!innerBreakableElements?.includes(nextElement) || currentElementStartingPage !== nextElementStartingPage) {
+            //Push to next page
+            let correctionToApply = (currentElementStartingPage + 1) * PAPER_HEIGHT - currentElementBoundingRect.top;
+            correctionToApply += 2 * contentMargin;
+
+            element.style.paddingTop = `${correctionToApply}px`;
+          }
+        }
+      });
+    }
+  }
 }
 
 const containerCSS: any = {
@@ -239,8 +245,8 @@ const containerCSS: any = {
 const overlayCSS: any = {
   position: 'fixed',
   zIndex: 1000,
-  opacity: 0,
-  // overflow: 'scroll',
+  // opacity: 0,
+  overflow: 'scroll',
   left: 0,
   right: 0,
   bottom: 0,
@@ -249,6 +255,11 @@ const overlayCSS: any = {
 };
 
 const PAPER_METRICS: any = {
+  A2: {
+    id: 'a2',
+    width: 1191,
+    height: 1684
+  },
   A3: {
     id: 'a3',
     width: 842,

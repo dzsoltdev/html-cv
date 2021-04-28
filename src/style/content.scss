@@ -1,11 +1,20 @@
 .content-wrapper {
+  display: flex;
+  justify-content: center;
   padding: 32px;
 }
 
 .content {
+  display: grid;
+
   &.export {
-    max-width: 842px;
-    //min-height: 5952px; //page * 1190.5
+    max-width: 1191px;
+    min-height: 6736px; //page * 1684
+
+    .avatar {
+      width: 96px;
+      height: 96px;
+    }
   }
 
   .avatar {

@@ -21,6 +21,8 @@ const Header = () => {
       let options = {
         fileName: 'dobak_zsolt_cv.pdf',
         paperSize: paperSizes.A4,
+        fittingPaperSize: paperSizes.A2,
+        contentMargin: 64,
         setProgressState: setExportInProgress
       };
 
