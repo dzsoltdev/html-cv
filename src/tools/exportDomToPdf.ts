@@ -11,8 +11,14 @@ import { toPng } from 'html-to-image';
 // const a4Height = 595.28;
 // const a4Width = 841.89;
 
+export enum paperSizes {
+  A4 = 'A4',
+  A3 = 'A3',
+}
+
 class ExportDomToPdfOptions {
   fileName: string = 'default.pdf';
+  paperSize: paperSizes = paperSizes.A4;
   excludeClassNames?: Array<string>;
   onProcessEnd?: Function;
   setProgressState?: Function;
@@ -20,23 +26,30 @@ class ExportDomToPdfOptions {
 
 export default class ExportDomToPdf {
   static export = async (node: any, options: ExportDomToPdfOptions) => {
-    const {fileName, setProgressState} = options;
+    const {fileName, paperSize, setProgressState} = options;
+
+    const paperDetails = PAPER_METRICS[paperSize];
 
     setProgressState?.(true);
+
+    const nodeWidth = node.getBoundingClientRect().width;
 
     let overlay = ExportDomToPdf.createElement('div', {
       style: overlayCSS
     });
 
     let container = ExportDomToPdf.createElement('div', {
-      style: containerCSS
+      style: {
+        ...containerCSS,
+        width: `${nodeWidth}px`
+      }
     });
 
     container.appendChild(ExportDomToPdf.cloneNode(node));
     overlay.appendChild(container);
     document.body.appendChild(overlay);
 
-    // const containerWidth = overrideWidth || container.getBoundingClientRect().width;
+    const containerWidth = container.getBoundingClientRect().width;
     // const calculatedPageHeight = Math.floor(containerWidth * a4Ratio);
 
     let elementsToConvert: Array<any> = container.querySelectorAll('[data-convert-to-canvas]');
@@ -93,8 +106,8 @@ export default class ExportDomToPdf {
 
     const doc = new jsPDF({
       orientation: 'portrait',
-      unit: 'px',
-      format: 'a2',
+      unit: 'pt',
+      format: paperDetails.id,
       compress: true
     });
 
@@ -135,7 +148,8 @@ export default class ExportDomToPdf {
         }
       ],
       html2canvas: {
-        backgroundColor: null
+        backgroundColor: null,
+        scale: paperDetails.width / containerWidth
       }
     });
   }
@@ -233,3 +247,16 @@ const overlayCSS: any = {
   top: 0,
   backgroundColor: 'rgba(0,0,0,0.8)'
 };
+
+const PAPER_METRICS: any = {
+  A3: {
+    id: 'a3',
+    width: 842,
+    height: 1191
+  },
+  A4: {
+    id: 'a4',
+    width: 595,
+    height: 842
+  }
+}

@@ -5,7 +5,7 @@ import classNames from "classnames";
 import {isBrowser} from "react-device-detect";
 
 import {APP_MODE, useAppMode} from "../hooks/useAppMode";
-import ExportDomToPdf from "../tools/exportDomToPdf";
+import ExportDomToPdf, {paperSizes} from "../tools/exportDomToPdf";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
 
@@ -20,6 +20,7 @@ const Header = () => {
     if(cv) {
       let options = {
         fileName: 'dobak_zsolt_cv.pdf',
+        paperSize: paperSizes.A4,
         setProgressState: setExportInProgress
       };
 
