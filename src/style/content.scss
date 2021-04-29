@@ -15,6 +15,24 @@
       width: 96px;
       height: 96px;
     }
+
+    .links {
+      flex-direction: column;
+
+      a {
+        &:not(:last-child) {
+          margin-bottom: 8px;
+        }
+
+        display: flex;
+        align-items: center;
+
+        label {
+          font-size: 12px;
+          cursor: pointer;
+        }
+      }
+    }
   }
 
   .avatar {

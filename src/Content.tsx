@@ -69,13 +69,16 @@ const Content = () => {
             <div className={'label'}>Community</div>
             <div className={'links'}>
               <a href={'https://www.linkedin.com/in/zsolt-dobak'} target={'_blank'} rel="noreferrer">
-                <FontAwesomeIcon icon={faLinkedin} size={'2x'}/>
+                {appMode === APP_MODE.DEFAULT && <FontAwesomeIcon icon={faLinkedin} size={'2x'}/>}
+                {appMode === APP_MODE.EXPORT && <label>linkedin.com/in/zsolt-dobak</label>}
               </a>
               <a href={'https://github.com/dzsoltdev'} target={'_blank'} rel="noreferrer">
-                <FontAwesomeIcon icon={faGithub} size={'2x'}/>
+                {appMode === APP_MODE.DEFAULT && <FontAwesomeIcon icon={faGithub} size={'2x'}/>}
+                {appMode === APP_MODE.EXPORT && <label>github.com/dzsoltdev</label>}
               </a>
               <a href={'https://stackoverflow.com/users/14992691/zsolt-dobak'} target={'_blank'} rel="noreferrer">
-                <FontAwesomeIcon icon={faStackOverflow} size={'2x'}/>
+                {appMode === APP_MODE.DEFAULT && <FontAwesomeIcon icon={faStackOverflow} size={'2x'}/>}
+                {appMode === APP_MODE.EXPORT && <label>stackoverflow.com/users/14992691/zsolt-dobak</label>}
               </a>
             </div>
           </section>
