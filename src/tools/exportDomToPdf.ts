@@ -2,15 +2,6 @@ import {jsPDF} from "jspdf";
 import html2canvas from "html2canvas";
 import { toPng } from 'html-to-image';
 
-// const a4HeightCm = 297;
-// const a4WidthCm = 210;
-// const a4Ratio = a4HeightCm / a4WidthCm;
-//
-// const inchToCmRation = 2.54;
-//
-// const a4Height = 595.28;
-// const a4Width = 841.89;
-
 export enum paperSizes {
   A2 = 'A2',
   A3 = 'A3',
@@ -39,10 +30,6 @@ export default class ExportDomToPdf {
 
     const nodeWidth = node.getBoundingClientRect().width;
 
-    if(fittingPaperSize) {
-      ExportDomToPdf.adjustInnerElementsPosition(node, fittingPaperSize, contentMargin || DEFAULT_CONTENT_MARGIN);
-    }
-
     let overlay = ExportDomToPdf.createElement('div', {
       style: overlayCSS
     });
@@ -58,8 +45,11 @@ export default class ExportDomToPdf {
     overlay.appendChild(container);
     document.body.appendChild(overlay);
 
+    if(fittingPaperSize) {
+      ExportDomToPdf.adjustInnerElementsPosition(container, fittingPaperSize, contentMargin || DEFAULT_CONTENT_MARGIN);
+    }
+
     const containerWidth = container.getBoundingClientRect().width;
-    // const calculatedPageHeight = Math.floor(containerWidth * a4Ratio);
 
     let elementsToConvert: Array<any> = container.querySelectorAll('[data-convert-to-canvas]');
 
@@ -245,8 +235,7 @@ const containerCSS: any = {
 const overlayCSS: any = {
   position: 'fixed',
   zIndex: 1000,
-  // opacity: 0,
-  overflow: 'scroll',
+  opacity: 0,
   left: 0,
   right: 0,
   bottom: 0,
