@@ -27,8 +27,13 @@
         display: flex;
         align-items: center;
 
+        svg {
+          width: 1em;
+        }
+
         label {
-          font-size: 12px;
+          margin-left: 8px;
+          font-size: 11px;
           cursor: pointer;
         }
       }
@@ -38,6 +43,25 @@
   .avatar {
     width: 128px;
     height: 128px;
+  }
+
+  .contacts {
+    display: flex;
+    flex-direction: column;
+
+    a {
+      &:not(:last-child) {
+        margin-bottom: 8px;
+      }
+
+      display: flex;
+      align-items: center;
+
+      label {
+        margin-left: 8px;
+        cursor: pointer;
+      }
+    }
   }
 
   .links {

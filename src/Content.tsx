@@ -5,6 +5,7 @@ import {Avatar, Accordion, AccordionSummary, AccordionDetails, Tooltip} from "@m
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faGithub, faLinkedin, faStackOverflow} from '@fortawesome/free-brands-svg-icons';
+import {faPhoneAlt, faEnvelope, faGlobeAmericas} from "@fortawesome/free-solid-svg-icons";
 
 import profilePicture from './assets/images/zsolt-dobak.jpg';
 
@@ -55,8 +56,20 @@ const Content = () => {
 
           <section>
             <div className={'label'}>Contacts</div>
-            <div><a href={'tel:+36202814270'}>+36202814270</a></div>
-            <div><a href={'mailto:dzsolt87@gmail.com'}>dzsolt87@gmail.com</a></div>
+            <div className={'contacts'}>
+              <a href={'tel:+36202814270'}>
+                <FontAwesomeIcon icon={faPhoneAlt} size={'sm'}/>
+                <label>+36202814270</label>
+              </a>
+              <a href={'mailto:dzsolt87@gmail.com'}>
+                <FontAwesomeIcon icon={faEnvelope} size={'sm'}/>
+                <label>dzsolt87@gmail.com</label>
+              </a>
+              <a href={'https://zsolt-dobak.web.app/'} target={'_blank'} rel="noreferrer">
+                <FontAwesomeIcon icon={faGlobeAmericas} size={'sm'}/>
+                <label>zsolt-dobak.web.app</label>
+              </a>
+            </div>
           </section>
 
           <section>
@@ -69,15 +82,15 @@ const Content = () => {
             <div className={'label'}>Community</div>
             <div className={'links'}>
               <a href={'https://www.linkedin.com/in/zsolt-dobak'} target={'_blank'} rel="noreferrer">
-                {appMode === APP_MODE.DEFAULT && <FontAwesomeIcon icon={faLinkedin} size={'2x'}/>}
+                <FontAwesomeIcon icon={faLinkedin} size={'2x'}/>
                 {appMode === APP_MODE.EXPORT && <label>linkedin.com/in/zsolt-dobak</label>}
               </a>
               <a href={'https://github.com/dzsoltdev'} target={'_blank'} rel="noreferrer">
-                {appMode === APP_MODE.DEFAULT && <FontAwesomeIcon icon={faGithub} size={'2x'}/>}
+                <FontAwesomeIcon icon={faGithub} size={'2x'}/>
                 {appMode === APP_MODE.EXPORT && <label>github.com/dzsoltdev</label>}
               </a>
               <a href={'https://stackoverflow.com/users/14992691/zsolt-dobak'} target={'_blank'} rel="noreferrer">
-                {appMode === APP_MODE.DEFAULT && <FontAwesomeIcon icon={faStackOverflow} size={'2x'}/>}
+                <FontAwesomeIcon icon={faStackOverflow} size={'2x'}/>
                 {appMode === APP_MODE.EXPORT && <label>stackoverflow.com/users/14992691/zsolt-dobak</label>}
               </a>
             </div>

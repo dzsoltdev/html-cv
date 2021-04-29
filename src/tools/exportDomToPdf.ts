@@ -58,7 +58,7 @@ export default class ExportDomToPdf {
         backgroundColor: null
       });
 
-      element.parentNode.appendChild(canvas);
+      element.parentNode.insertBefore(canvas, element);
       element.parentNode.removeChild(element);
     }
 
@@ -69,7 +69,7 @@ export default class ExportDomToPdf {
       const img: any = new Image();
       img.src = dataUrl;
 
-      element.parentNode.appendChild(img);
+      element.parentNode.insertBefore(img, element);
       element.parentNode.removeChild(element);
     }
 
