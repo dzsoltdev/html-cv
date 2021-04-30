@@ -1,6 +1,7 @@
 import {jsPDF} from "jspdf";
 import html2canvas from "html2canvas";
 import { toPng } from 'html-to-image';
+import _ from 'lodash';
 
 export enum paperSizes {
   A2 = 'A2',
@@ -24,7 +25,7 @@ export default class ExportDomToPdf {
   static export = async (node: any, options: ExportDomToPdfOptions) => {
     const {fileName, paperSize, fittingPaperSize, contentMargin, setProgressState} = options;
 
-    const paperDetails = PAPER_METRICS[paperSize];
+    const paperDetails = _.get(PAPER_METRICS, paperSize);
 
     setProgressState?.(true);
 
@@ -124,7 +125,7 @@ export default class ExportDomToPdf {
   }
 
   private static createElement = (tagName: string, options: any) => {
-    const {className, innerHTML, style} = options;
+    const {className, style} = options;
 
     let element: any = document.createElement(tagName);
 
@@ -132,19 +133,9 @@ export default class ExportDomToPdf {
       element.className = className;
     }
 
-    if (innerHTML) {
-      element.innerHTML = innerHTML;
-      let scripts: Array<any> = element.getElementsByTagName('script');
-      let i = scripts.length;
-
-      while (i-- > 0) {
-        scripts[i].parentNode.removeChild(scripts[i]);
-      }
-    }
-
     if (style) {
       for (let key in style) {
-        element.style[key] = style[key];
+        _.set(element, `style.${key}`, _.get(style, key));
       }
     }
 
@@ -181,7 +172,7 @@ export default class ExportDomToPdf {
   }
 
   private static adjustInnerElementsPosition = (node: any, fittingPaperSize: paperSizes, contentMargin: number) => {
-    const PAPER_HEIGHT = PAPER_METRICS[fittingPaperSize].height;
+    const PAPER_HEIGHT = _.get(PAPER_METRICS, `${fittingPaperSize}.height`);
     let breakableElements = node.querySelectorAll('[data-breakpoint]');
     breakableElements = Array.from(breakableElements);
 
