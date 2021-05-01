@@ -210,11 +210,26 @@ const Content = () => {
                     <div>
                       <p>
                         It was my second freelancer project, with much more feature like the previous one.
-                        It is also written in React with typescript, but focuses on attracting customers to improve publicity.
+                        It is also written in React with TypeScript, but focused on attracting customers to improve publicity.
                         For the best user experience, I implemented animated loaders for images, used
                         <a href={'https://cloudinary.com/'} target={'_blank'} rel="noreferrer"> Cloudinary</a> as a gallery components, which
                         uses CDN to improve customer setiscafction. I also integrated Google Maps and finally launched in Firebase as well as the
                         previous project.
+                      </p>
+                    </div>
+                  </section>
+
+                  <section data-breakpoint={true}>
+                    <div className={'sub-title'}>My own webpage</div>
+                    <a className={'info'} href={'https://zsolt-dobak.web.app/'} target={'_blank'} rel="noreferrer">https://zsolt-dobak.web.app</a>
+                    <div className={'label'}>Tech. Stack</div>
+                    <div>HTML, SCSS, TypeScript, React, npm, GitHub, Firebase, jsPdf, Codacy, Google Analytics, SEO</div>
+                    <div className={'label'}>Project Summary</div>
+                    <div>
+                      <p>
+                        After a lot of experimentals with CV templates and generators, I thought, why not to implement my CV as webapp? So I've started
+                        to implement my own webpage to provide a summary of my carrier as I expected. It has a setisfying feature to export the content to PDF
+                        as well. The projet is open source, so You can check it out on <a href={'https://github.com/dzsoltdev/html-cv'} target={'_blank'} rel="noreferrer">GitHub</a>.
                       </p>
                     </div>
                   </section>
