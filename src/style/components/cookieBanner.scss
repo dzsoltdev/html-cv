@@ -18,11 +18,13 @@
     position: fixed;
     width: 100%;
     z-index: 999;
-    background-color: $default-font-color-mid-opacity;
+    background-color: rgba(22, 21, 19, 0.8);
 
     .content {
-      margin: 15px;
+      text-align: center;
+      margin: 16px;
       font-size: 14px;
+      font-weight: 500;
     }
 
     .controls {
