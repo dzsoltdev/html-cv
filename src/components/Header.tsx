@@ -5,7 +5,6 @@ import classNames from "classnames";
 import {isBrowser} from "react-device-detect";
 
 import {APP_MODE, useAppMode} from "../hooks/useAppMode";
-import ExportDomToPdf, {paperSizes} from "../tools/exportDomToPdf";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
 
@@ -14,10 +13,12 @@ const Header = () => {
 
   const [exportInProgress, setExportInProgress] = useState(false);
 
-  const handleExport = useCallback(() => {
+  const handleExport = useCallback(async () => {
     let cv = document.getElementById('cv-content');
 
     if(cv) {
+      const {ExportDomToPdf, paperSizes} = await import("../tools/exportDomToPdf");
+
       let options = {
         fileName: 'dobak_zsolt_cv.pdf',
         paperSize: paperSizes.A4,
@@ -26,7 +27,7 @@ const Header = () => {
         setProgressState: setExportInProgress
       };
 
-      ExportDomToPdf.export(cv, options)
+      ExportDomToPdf.export(cv, options);
     }
   },[]);
 

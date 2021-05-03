@@ -21,7 +21,7 @@ class ExportDomToPdfOptions {
 
 const DEFAULT_CONTENT_MARGIN = 0;
 
-export default class ExportDomToPdf {
+export class ExportDomToPdf {
   static export = async (node: any, options: ExportDomToPdfOptions) => {
     const {fileName, paperSize, fittingPaperSize, contentMargin, setProgressState} = options;
 
