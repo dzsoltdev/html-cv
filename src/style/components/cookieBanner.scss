@@ -1,0 +1,52 @@
+.cookie-overlay {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 2000!important;
+
+  .cookie-banner-container {
+    bottom: 0;
+    align-items: baseline;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    background-color: $default-font-color-mid-opacity;
+
+    .content {
+      margin: 15px;
+      font-size: 14px;
+    }
+
+    .controls {
+      .button {
+        box-shadow: none;
+        cursor: pointer;
+        flex: 0 0 auto;
+        padding: 5px 10px;
+        margin: 15px;
+
+        border: 2px solid $font-color-light;
+        border-radius: 4px;
+
+        &.primary {
+          background: $font-color-light;
+          color: black;
+          font-weight: 600;
+        }
+
+        &.secondary {
+          background: transparent;
+          color: $font-color-light;
+        }
+      }
+    }
+  }
+}
