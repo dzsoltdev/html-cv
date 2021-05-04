@@ -26,7 +26,6 @@ function App() {
         <Content />
       </div>
       <CookieConsent disableStyles
-                     overlay
                      expires={3650}
                      flipButtons
                      buttonText={'I accept'}

@@ -6,48 +6,48 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 2000!important;
+}
 
-  .cookie-banner-container {
-    bottom: 0;
-    align-items: baseline;
-    color: white;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    left: 0;
-    position: fixed;
-    width: 100%;
-    z-index: 999;
-    background-color: rgba(22, 21, 19, 0.8);
+.cookie-banner-container {
+  bottom: 0;
+  align-items: baseline;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  background-color: rgba(22, 21, 19, 0.8);
 
-    .content {
-      text-align: center;
-      margin: 16px;
-      font-size: 14px;
-      font-weight: 500;
-    }
+  .content {
+    text-align: center;
+    margin: 16px;
+    font-size: 14px;
+    font-weight: 500;
+  }
 
-    .controls {
-      .button {
-        box-shadow: none;
-        cursor: pointer;
-        flex: 0 0 auto;
-        padding: 5px 10px;
-        margin: 15px;
+  .controls {
+    .button {
+      box-shadow: none;
+      cursor: pointer;
+      flex: 0 0 auto;
+      padding: 5px 10px;
+      margin: 15px;
 
-        border: 2px solid $font-color-light;
-        border-radius: 4px;
+      border: 2px solid $font-color-light;
+      border-radius: 4px;
 
-        &.primary {
-          background: $font-color-light;
-          color: black;
-          font-weight: 600;
-        }
+      &.primary {
+        background: $font-color-light;
+        color: black;
+        font-weight: 600;
+      }
 
-        &.secondary {
-          background: transparent;
-          color: $font-color-light;
-        }
+      &.secondary {
+        background: transparent;
+        color: $font-color-light;
       }
     }
   }
