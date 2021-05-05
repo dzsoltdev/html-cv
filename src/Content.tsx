@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from "react";
 import classNames from "classnames";
-import _ from 'lodash';
+import {remove} from 'lodash';
 import {Avatar, Accordion, AccordionSummary, AccordionDetails, Tooltip} from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -30,7 +30,7 @@ const Content = () => {
     let updatedState = [...openedAccordions];
 
     if (openedAccordions.includes(accordionId)) {
-      _.remove(updatedState, (id => id === accordionId));
+      remove(updatedState, (id => id === accordionId));
     } else {
       updatedState.push(accordionId);
     }
