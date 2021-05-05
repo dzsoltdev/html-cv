@@ -1,7 +1,8 @@
 import {jsPDF} from "jspdf";
 import html2canvas from "html2canvas";
 import { toPng } from 'html-to-image';
-import {get, set} from 'lodash';
+import get from 'lodash/get';
+import set from 'lodash/set';
 
 export enum paperSizes {
   A2 = 'A2',

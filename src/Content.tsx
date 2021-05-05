@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from "react";
 import classNames from "classnames";
-import {remove} from 'lodash';
+import remove from 'lodash/remove';
 import {Avatar, Accordion, AccordionSummary, AccordionDetails, Tooltip} from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
