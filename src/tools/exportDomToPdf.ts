@@ -95,7 +95,7 @@ export class ExportDomToPdf {
         {
           family: 'Montserrat',
           src: [{
-            url: '/static/media/Montserrat-Regular.3cd78665.ttf',
+            url: 'Montserrat-Regular.ttf',
             format: 'truetype'
           }],
           weight: 400
@@ -103,7 +103,7 @@ export class ExportDomToPdf {
         {
           family: 'Montserrat',
           src: [{
-            url: '/static/media/Montserrat-Medium.e2d60bc4.ttf',
+            url: 'Montserrat-Medium.ttf',
             format: 'truetype'
           }],
           weight: 500
@@ -111,7 +111,7 @@ export class ExportDomToPdf {
         {
           family: 'Montserrat',
           src: [{
-            url: '/static/media/Montserrat-SemiBold.fa8441f3.ttf',
+            url: 'Montserrat-SemiBold.ttf',
             format: 'truetype'
           }],
           weight: 600
