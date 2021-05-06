@@ -2,9 +2,8 @@ import React, {useCallback, useState} from "react";
 import {FormControlLabel, Switch, CircularProgress} from "@material-ui/core";
 import {APP_MODE, useAppMode} from "../hooks/useAppMode";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
+import {faExclamationTriangle, faDownload} from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
-import CloudDownloadOutlinedIcon from '@material-ui/icons/CloudDownloadOutlined';
 
 const HeaderControls = () => {
   const {appMode, setAppMode} = useAppMode();
@@ -43,7 +42,7 @@ const HeaderControls = () => {
       This feature is under development
     </label>}
     <div className={classNames('export', {disabled: appMode !== APP_MODE.EXPORT})} onClick={handleExport}>
-      {!exportInProgress && <CloudDownloadOutlinedIcon/>}
+      {!exportInProgress && <FontAwesomeIcon icon={faDownload} size={'1x'}/>}
       {exportInProgress && <CircularProgress className={'download-progress'} size={24}/>}
     </div>
   </div>

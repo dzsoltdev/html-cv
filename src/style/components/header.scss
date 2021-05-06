@@ -26,14 +26,16 @@ header {
       }
 
       .download-progress {
+        width: 1em!important;
+        height: 1em!important;
         color: $font-color-light-mid-opacity;
       }
 
       .warning {
         position: absolute;
-        font-size: 12px;
+        font-size: 11px;
         left: 16px;
-        bottom: -8px;
+        bottom: -12px;
 
         svg {
           margin-right: 4px;

@@ -2,10 +2,9 @@ import React, {useCallback, useState} from "react";
 import classNames from "classnames";
 import remove from 'lodash/remove';
 import {Avatar, Accordion, AccordionSummary, AccordionDetails, Tooltip} from "@material-ui/core";
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faGithub, faLinkedin, faStackOverflow} from '@fortawesome/free-brands-svg-icons';
-import {faPhoneAlt, faEnvelope, faGlobeAmericas} from "@fortawesome/free-solid-svg-icons";
+import {faPhoneAlt, faEnvelope, faGlobeAmericas, faChevronDown} from "@fortawesome/free-solid-svg-icons";
 
 import profilePicture from './assets/images/zsolt-dobak.jpg';
 
@@ -169,7 +168,7 @@ const Content = () => {
                 <AccordionSummary
                   onClick={() => handleOpenAccordion(ACCORDIONS.FREELANCER)}
                   className={'accordion-summary'}
-                  expandIcon={appMode !== APP_MODE.EXPORT && <ExpandMoreIcon/>}
+                  expandIcon={appMode !== APP_MODE.EXPORT && <FontAwesomeIcon icon={faChevronDown} size={'xs'}/>}
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
@@ -243,7 +242,7 @@ const Content = () => {
                 <AccordionSummary
                   onClick={() => handleOpenAccordion(ACCORDIONS.ORACLE)}
                   className={'accordion-summary'}
-                  expandIcon={appMode !== APP_MODE.EXPORT && <ExpandMoreIcon/>}
+                  expandIcon={appMode !== APP_MODE.EXPORT && <FontAwesomeIcon icon={faChevronDown} size={'xs'}/>}
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
@@ -303,7 +302,7 @@ const Content = () => {
                 <AccordionSummary
                   onClick={() => handleOpenAccordion(ACCORDIONS.ICT)}
                   className={'accordion-summary'}
-                  expandIcon={appMode !== APP_MODE.EXPORT && <ExpandMoreIcon/>}
+                  expandIcon={appMode !== APP_MODE.EXPORT && <FontAwesomeIcon icon={faChevronDown} size={'xs'}/>}
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
@@ -436,7 +435,7 @@ const Content = () => {
                 <AccordionSummary
                   onClick={() => handleOpenAccordion(ACCORDIONS.NOKIA)}
                   className={'accordion-summary'}
-                  expandIcon={appMode !== APP_MODE.EXPORT && <ExpandMoreIcon/>}
+                  expandIcon={appMode !== APP_MODE.EXPORT && <FontAwesomeIcon icon={faChevronDown} size={'xs'}/>}
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
