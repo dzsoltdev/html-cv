@@ -248,7 +248,7 @@ const Content = () => {
                 >
                   <Tooltip title={isAccordionExpanded(ACCORDIONS.ORACLE) ? '' : 'Click to see projects'}>
                     <div className={'summary'}>
-                      <div className={'sub-title'}>Principal UI and mobile developer at Oracle</div>
+                      <div className={'sub-title'}>Principal UI and mobile developer and Frontend tech lead at Oracle</div>
                       <div>November, 2019 - Present</div>
                       <a className={'info'} href={'https://www.oracle.com/'} target={'_blank'} rel="noreferrer">https://www.oracle.com</a>
                     </div>
@@ -266,7 +266,7 @@ const Content = () => {
                     <div className={'label'}>Project Summary</div>
                     <div>
                       <p>
-                        As a part of an international team (the teammates are from US, Mexico and Hungary), my recent
+                        As a member of an international team (the teammates are from US, Mexico, India and Hungary), my recent
                         project is an analytical tool, which helps Oracle's
                         specialist to improve customer satisfaction by highlighting known issues based on a huge data set.
                         The development started in React Native,
@@ -274,11 +274,6 @@ const Content = () => {
                         enough knowledge of OJET ecosystem
                         to start delivery as soon as possible and fortify the project with 3rd party libs, eg. with redux,
                         which was extremely difficult to integrate with OJET.
-                        Do to my ability to solve architectural issues and find working solutions to the most of the
-                        business needs, I've become the lead of the
-                        frontend part of the project, so my set of roles has been expanded with to give suggestions and to
-                        make decisions on any technical issues,
-                        as well as to mentor my colleagues.
                       </p>
 
                       <p>
@@ -289,6 +284,15 @@ const Content = () => {
                         I'm working on a micro frontend architecture based solution to be able to share the codebase between
                         teams and use existing,
                         JET written pages to speed up the migration to React.
+                      </p>
+
+                      <p>
+                        Do to my ability to solve architectural issues and suggest solutions to the most difficult
+                        business needs, I've become the tech lead of the frontend part of the team.
+                        My duties expanded with creating POCs and giving suggestions to aid business decision for the new features,
+                        collaborate with the UX team to find out the most user friendly components, which also can be developed quickly,
+                        participating on UI reviews, educating teammates to coding practicies, improving the frontend CI/CD workflow
+                        and I'm also involved into the hiring process.
                       </p>
                     </div>
                   </section>
