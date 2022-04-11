@@ -307,7 +307,7 @@ const Content = () => {
                     </div>
                   </section>
 
-                  <div className={'title'}>Projects</div>
+                  <div data-breakpoint={true} className={'title'}>Projects</div>
 
                   <section>
                     <div className={'sub-title'}>Customer Success Platform</div>
@@ -342,7 +342,7 @@ const Content = () => {
                     </div>
                   </section>
 
-                  <section>
+                  <section data-breakpoint={true}>
                     <div className={'sub-title'}>SCUBA</div>
                     <div className={'label'}>Tech. Stack</div>
                     <div>HTML, SCSS, JavaScript, TypeScript, OJET, Preact, webpack, REST API, Jest, testing-library, Sonar,
