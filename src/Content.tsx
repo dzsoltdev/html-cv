@@ -16,6 +16,7 @@ import {useAppMode, APP_MODE} from "./hooks/useAppMode";
 enum ACCORDIONS {
   FREELANCER = 'FREELANCER',
   ORACLE = 'ORACLE',
+  ORACLE_LEAD = 'ORACLE_LEAD',
   ICT = 'ICT',
   NOKIA = 'NOKIA',
 }
@@ -50,7 +51,7 @@ const Content = () => {
             <Avatar className={'avatar'} alt={'Zsolt Dobák'} src={profilePicture}/>
             <div className={'title'}>Zsolt Dobák</div>
             <Separator/>
-            <div className={'sub-title'}>Principal UI and mobile developer @ Oracle</div>
+            <div className={'sub-title'}>Frontend team lead and tech lead @ Oracle</div>
           </section>
 
           <section>
@@ -108,15 +109,15 @@ const Content = () => {
             <ProgressBar value={100} label={'Adapting to new technologies'}/>
             <ProgressBar value={100} label={'Problem solving'}/>
             <ProgressBar value={100} label={'Investigating bugs'}/>
-            <ProgressBar value={65} label={'Automated software testing'}/>
-            <ProgressBar value={50} label={'Mentoring'}/>
-            <ProgressBar value={70} label={'Architectural planning'}/>
-            <ProgressBar value={75} label={'Work with agile methodologies'}/>
+            <ProgressBar value={75} label={'Automated software testing'}/>
+            <ProgressBar value={70} label={'Mentoring'}/>
+            <ProgressBar value={80} label={'Architectural planning'}/>
+            <ProgressBar value={85} label={'Work with agile methodologies'}/>
           </section>
 
           <section>
             <div className={'label'}>Languages</div>
-            <ProgressBar value={60} label={'English'}/>
+            <ProgressBar value={70} label={'English'}/>
           </section>
 
           <section>
@@ -127,7 +128,7 @@ const Content = () => {
 
         details={<>
           <section>
-            <div className={'title'}>Carrier Highlight</div>
+            <div className={'title'}>Career Highlight</div>
             <div>I am a frontend-focused engineer, eager to find the best solutions for the most challenging tasks -
               this is what really keeps me motivated in my job. I am not afraid of working on projects with new
               frameworks and technologies
@@ -238,6 +239,42 @@ const Content = () => {
 
             <div data-breakpoint={true}>
               <Accordion className={classNames('accordion-container', {export: appMode === APP_MODE.EXPORT})}
+                         expanded={isAccordionExpanded(ACCORDIONS.ORACLE_LEAD)}>
+                <AccordionSummary
+                  onClick={() => handleOpenAccordion(ACCORDIONS.ORACLE_LEAD)}
+                  className={'accordion-summary'}
+                  expandIcon={appMode !== APP_MODE.EXPORT && <FontAwesomeIcon icon={faChevronDown} size={'xs'}/>}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Tooltip title={isAccordionExpanded(ACCORDIONS.ORACLE_LEAD) ? '' : 'Click to see projects'}>
+                    <div className={'summary'}>
+                      <div className={'sub-title'}>Frontend team and tech lead at Oracle</div>
+                      <div>January, 2022 - Present</div>
+                      <a className={'info'} href={'https://www.oracle.com/'} target={'_blank'} rel="noreferrer">https://www.oracle.com</a>
+                    </div>
+                  </Tooltip>
+                </AccordionSummary>
+                <AccordionDetails className={'accordion-details'}>
+                  <div className={'title'}>Role Summary</div>
+
+                  <section>
+                    <div>
+                      <p>
+                        As the CSP project (you can read more about it in the next section) became more and more successful, the development team have been started to grow and been separated to smaller teams.
+                        I actively supported my line manager to coordinate UI development and as the team separation happened,
+                        I've got the promotion to be the lead of the frontend team. Naturally, my roles changed with the promotion and now I'm the responsible to keep an
+                        eye on frontend team's work, organize meetings, take care on knowledge share and support colleauges' personal development as well as to report to
+                        the line manager.
+                      </p>
+                    </div>
+                  </section>
+                </AccordionDetails>
+              </Accordion>
+            </div>
+
+            <div data-breakpoint={true}>
+              <Accordion className={classNames('accordion-container', {export: appMode === APP_MODE.EXPORT})}
                          expanded={isAccordionExpanded(ACCORDIONS.ORACLE)}>
                 <AccordionSummary
                   onClick={() => handleOpenAccordion(ACCORDIONS.ORACLE)}
@@ -249,19 +286,34 @@ const Content = () => {
                   <Tooltip title={isAccordionExpanded(ACCORDIONS.ORACLE) ? '' : 'Click to see projects'}>
                     <div className={'summary'}>
                       <div className={'sub-title'}>Principal UI and mobile developer and Frontend tech lead at Oracle</div>
-                      <div>November, 2019 - Present</div>
+                      <div>November, 2019 - December, 2021</div>
                       <a className={'info'} href={'https://www.oracle.com/'} target={'_blank'} rel="noreferrer">https://www.oracle.com</a>
                     </div>
                   </Tooltip>
                 </AccordionSummary>
                 <AccordionDetails className={'accordion-details'}>
+                  <div className={'title'}>Role Summary</div>
+
+                  <section>
+                    <div>
+                      <p>
+                        Do to my ability to solve architectural issues and suggest solutions to the most difficult
+                        business needs, I've become the tech lead of the frontend part of the team.
+                        My duties expanded with creating POCs and giving suggestions to aid business decision for the new features,
+                        collaborate with the UX team to find out the most user friendly components, which also can be developed quickly,
+                        participating on UI reviews, educating teammates to coding practicies, improving the frontend CI/CD workflow
+                        and I'm also involved into the hiring process.
+                      </p>
+                    </div>
+                  </section>
+
                   <div className={'title'}>Projects</div>
 
                   <section>
                     <div className={'sub-title'}>Customer Success Platform</div>
                     <div className={'label'}>Tech. Stack</div>
                     <div>HTML, SCSS, JavaScript, TypeScript, OJET, React, Redux, webpack, REST API, React Native, Karma,
-                      Mocha, Chai, Sinon, Micro frontend, npm, git, Jenkins
+                      Mocha, Chai, Sinon, Micro frontend, npm, git, Jenkins, Sonar
                     </div>
                     <div className={'label'}>Project Summary</div>
                     <div>
@@ -277,22 +329,34 @@ const Content = () => {
                       </p>
 
                       <p>
-                        Nowadays I'm working on a React alternative of this project. I've developed the whole app from
-                        scratch and started to transfer all existing features
+                        Next to the production version, I've started to work on a React based alternative of this project.
+                        I've developed the whole app from scratch and started to transfer all existing features
                         from the OJET version and solve all the business needs, what we weren't able to reach with the other
                         framework. As part of the app,
                         I'm working on a micro frontend architecture based solution to be able to share the codebase between
                         teams and use existing,
                         JET written pages to speed up the migration to React.
-                      </p>
 
+                        Unfortunately, this approach has been cancelled later.
+                      </p>
+                    </div>
+                  </section>
+
+                  <section>
+                    <div className={'sub-title'}>SCUBA</div>
+                    <div className={'label'}>Tech. Stack</div>
+                    <div>HTML, SCSS, JavaScript, TypeScript, OJET, Preact, webpack, REST API, Jest, testing-library, Sonar,
+                      npm, git, Jenkins
+                    </div>
+                    <div className={'label'}>Project Summary</div>
+                    <div>
                       <p>
-                        Do to my ability to solve architectural issues and suggest solutions to the most difficult
-                        business needs, I've become the tech lead of the frontend part of the team.
-                        My duties expanded with creating POCs and giving suggestions to aid business decision for the new features,
-                        collaborate with the UX team to find out the most user friendly components, which also can be developed quickly,
-                        participating on UI reviews, educating teammates to coding practicies, improving the frontend CI/CD workflow
-                        and I'm also involved into the hiring process.
+                        This small project is also about to support finance team to find Oracle products, which would be
+                        successful suggestion to the customers to extend their existing product portfolio.
+
+                        It's written with the latest OJET version, which is built up on preact framework (which is very similar to react),
+                        so I was able to work again with my prefered framework.
+                        I was the only one UI developer on the project and was responsible on the UX as well.
                       </p>
                     </div>
                   </section>
